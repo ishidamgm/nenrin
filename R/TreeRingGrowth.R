@@ -1,6 +1,9 @@
 
 # TreeRingGrowth.R ####
 
+
+
+
 #' relationships year and tree(annual) ring area
 #'
 #' @param YA
@@ -18,10 +21,64 @@ YearArea <- function(L2,yr_end=2018){
   Year_DiskArea <- data.frame(year=yr_a,DiskArea=a)
   plot(Year_DiskArea)
 
-  windows()
   Year_TreeRingArea <- data.frame(year=yr_a[-1],TreeRingArea=diff(a))
   plot(Year_TreeRingArea,type="b")
   abline(v = seq(floor(min(yr_a)/10)*10, max(yr_a),10 ), col = "gray")
 
   return(Year_TreeRingArea)
 }
+
+#' return a numeric list of tree ring width from radial measurement points
+#'
+#' @param P data frame of tree ring points
+#' @param idn length of id of radial measurement points
+#'
+#' @return list of tree ring width
+#' @export
+#'
+#' @examples
+#' trw<-TreeRingWidthMatrix_ID(P)
+#' plot(trw[[1]],type="l")
+#' for (i in 2:8)lines(trw[[i]],col=i)
+
+TreeRingWidthMatrix_ID<-function(P,idn=8){
+  trw<-c() # tree_ring_width
+  for (i in 1:idn){
+    i<-P$id==i
+    trw<-c(trw,list(dst(P[i,c(1,2)])))
+  }
+  return(trw)
+}
+
+
+
+
+
+
+
+#' estimate trank area from radius as true circle
+#'
+#' @param r radius (length between a pith and cambium layer)
+#'
+#' @return numeric of  trunk area
+#' @export
+#'
+#' @examples
+#'
+r2a<-function(r){
+  pi*r^2
+}
+
+#' estimating growth of trunk area from tree ring width (trw)
+#' @param trw list of tree ring width (cambium to pith)
+#' @param id numeric, id of radial annual ring points
+#'
+#' @return numeric vector of trunk cross-sectional area
+#' @export
+#'
+#' @examples
+Ga_w<-function(trw, id){
+  return(r2a(cumsum(rev(trw[[id]]))))
+}
+
+

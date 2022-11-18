@@ -1,10 +1,10 @@
 Package: nenrin
 Type: Package
 Title: Analyzing polygonal tree ring shapes
-Version: 0.0.3
+Version: 0.0.4
 Author: Megumi Ishida  [aut, cph, cre, trl]
 Maintainer: Megumi Ishida <ishidam@gifu-u.ac.jp>
-Description: !!! no slot of name "year_Pith" for this object of class "class_disk" _ Measurement of all annual tree-ring shapes of  tree disks with crack using manual digitizing and interpolating model
+Description: !!!  Measurement of all annual tree-ring shapes of  tree disks with crack using manual digitizing and interpolating model
 Copyright: Authors and file inst/COPYRIGHTS
 License: GPL (>= 2)
 URL: https://github.com/ishidamgm/nenrin

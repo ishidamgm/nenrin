@@ -1,5 +1,65 @@
 # calculation.R ####
 
+#' Where is the mean()
+#'
+#' @param v numeric vector
+#'
+#' @return  reference number of vector v
+#' @export
+#'
+#' @examples
+#' which.mean(1:10)
+which.mean <- function(v){
+  return(which.min(abs(v-mean(v))))
+}
+
+#' return a numeric of circumference length of polygon line
+#'
+#' @param l.
+#'
+#' @return a numeric of circumference length of polygon line
+#' @export
+#'
+#' @examples
+#' l. <- data.frame(x=c(0,0,1,1),y=c(0,1,1,0))
+#' plot(l.,type="b") ; polygon(l.)
+#' circumference(l.)
+circumference <- function(l.){
+  l.2<-rbind(l.[-1,],l.[1,])
+  len<-sum(rowSums((l.-l.2)^2))
+  return(len)
+}
+
+#' return a cosine similarity of two vector
+#'
+#' @param g1  numeric vector
+#' @param g2  numeric vector
+#'
+#' @return a cosine similarity of two vector
+#' @export
+#'
+#' @examples
+#' g1=1:10 ; g2=1:10#-1
+#' plot(g1,type="b");lines(g2,type="b",col="red")
+#' Cosine_similarity(g1,g2)
+#'
+#' g1=1:10 ; g2=c(2,6,4,3,1,6,7,9,8,11)
+#' plot(g1,type="b");lines(g2,type="b",col="red")
+#' #' Cosine_similarity(g1,g2)
+#'
+#'  g1=1:10 ; g2=10:1
+#' plot(g1,type="b");lines(g2,type="b",col="red")
+#' Cosine_similarity(g1,g2)
+#'
+#' g1=1:10 ; g2=runif(10)*10
+#' plot(g1,type="b");lines(g2,type="b",col="red")
+#' Cosine_similarity(g1,g2)
+#'
+Cosine_similarity <- function(g1,g2){
+sum(g1*g2)/(sqrt(sum(g1^2))*sqrt(sum(g2^2)))
+
+}
+
 #### 多角形の面積を求める関数　
 #' area return a  area from polygon xy coordinates
 #'
@@ -220,8 +280,8 @@ against_numbers <- function(n1=1:5,n2=1:100){
 #'
 #' @examples
 #' j<-1:100
-#' through_numbers(j,5,20)
-#' through_numbers(j,95,20)
+#' rotate_numbers(j,5,20)
+#' rotate_numbers(j,95,20)
 #' against_numbers(rotate_numbers(j,95,20),j)
 #'
 rotate_numbers<-function(j,j1,j2){
