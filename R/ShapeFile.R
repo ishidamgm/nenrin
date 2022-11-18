@@ -46,7 +46,7 @@ WriteShapefile_AnnualRings <-function(L2=L,filename="test"){
 #' ReadShapefile_AnnualRingPoints("points277_h600",id.tag="id",ring.tag="ring")
 #'
 ReadShapefile_AnnualRingPoints <-function(filename="points277_h600",id.tag="id",ring.tag="ring"){
-  d<-read.shapefile(filename)　
+  d<-shapefiles::read.shapefile(filename)　
   shp<-d$shp$shp;
   dbf<-d$dbf$dbf;	names(dbf)
   id<-as.numeric(as.vector(dbf[,id.tag]));
