@@ -1,5 +1,7 @@
 # setClass.R ####
 
+#' @impotFrom(shapfile)
+#'
 
 # library    library(shapefiles)
 

@@ -24,7 +24,7 @@ WriteShapefile_AnnualRings <-function(L2=L,filename="test"){
   dd <- data.frame(Id=id.,X=shp.[,1],Y=shp.[,2])
   ddTable <- data.frame(Id= 0:(yn.-1),ring= yr. )###=c("1","2","3","4","5")
   ddShapefile <- convert.to.shapefile(dd, ddTable, "Id", 3)
-  write.shapefile(ddShapefile, filename, arcgis=T)
+  shapefiles::write.shapefile(ddShapefile, filename, arcgis=T)
   return(ddShapefile)
 }
 
@@ -120,7 +120,7 @@ ReadShapefile_IncompleteTreeRingsPoints <-function(filename,year_tag,year_ref.ta
 #' ReadShapefile_AnnualRings("L.comp",ring.tag="ring")
 #' Lplot(Ltest)
 ReadShapefile_AnnualRings <-function(filename="line277_h600",ring.tag="id"){
-  d<-read.shapefile(filename)  	### ライン・データの読み込み
+  d<-shapefiles::read.shapefile(filename)  	### ライン・データの読み込み
   ring<-as.numeric(as.vector(d$dbf$dbf[,ring.tag]))		###　年輪ポリゴン年数  #!!! 朝原さん用 $id
 
   # 入力順に格納されているのを小さい順に直す　jjjはその順番 #
