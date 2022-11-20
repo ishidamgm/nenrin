@@ -99,7 +99,6 @@ Ga_w<-function(trw, id){
 #' abline(v=seq(1800,2020,10),col="gray")
 #'
 #'
-
 TreeRingIndex <- function(ya){
   sm<-smooth.spline(ya,spar=0.8)
   idx<-ya[,2]/predict(sm,ya[,1])$y
