@@ -20,7 +20,7 @@ using with spline curve
 \examples{
 par(mfrow=c(2,1))
 plot(ya,type="b",ylab="Tree ring area",xlab="year")
-data("Abies277_h600","")
+#data("Abies277_h600","")
 sm <- TreeRingIndex(ya)$spline
 idx<- TreeRingIndex(ya)$idx
 lines(sm,col="red",lw=3)
