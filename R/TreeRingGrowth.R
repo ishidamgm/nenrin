@@ -105,3 +105,71 @@ TreeRingIndex <- function(ya){
   return(list(spline=sm,idx=data.frame(year=ya[,1],TreeRingIndex=idx)))
 }
 
+
+
+#' plot barplot of Takahashi2011,correlations between tree ring index and monthly mean temperature
+#'
+#' @param idx
+#' @param met
+#' @param y1
+#' @param y2
+#'
+#' @return data frame of year and correlation  between tree ring index and monthly mean temperature
+#' @export
+#'
+#' @examples
+#' #data("Abies277_h600","Takayama_Temperature_1900-2018")
+#' plot(ya,type="b")
+#' idx <- TreeRingIndex(ya)$idx
+#' plot(idx,type="b")
+#' y1 = 1900 ; y2 = 1950
+Takahashi2011_correlation_TreeRingIndex_Temperature<-function(){}
+
+
+
+#' Title
+#'
+#' @param idx
+#' @param met
+#' @param y1
+#' @param y2
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' plot(rownames(met),met[,13],type="b")
+#' plot(ya,type="b")
+#' idx<-TreeRingIndex(ya)$idx
+#'  r12<-cor2yr(idx,met,y1=1901,y2=1955)
+#'plot(r12,type="h",lwd=15)
+#'bp<-barplot(r12)
+#'abline(h=c(0),lty=1,lwd=3,col="red")
+#'abline(v=c(mean(bp[12:13])),lty=2,lwd=3)
+#' text(bp,r12*0.9,c(1:12,1:12))
+cor2yr<-function(idx,met,y1=1901,y2=1950){
+  y <-idx[,1]
+  idx_i = which(y1==y): which(y2==y)
+  y <- rownames(met)
+
+
+  # previous-current-following year
+  r12<-c()
+  for(ii in -1:0){#ii=0
+    met_i = which(y==(y1+ii)):which(y==(y2+ii))
+    for (j in 1:12){
+      v1 <- as.numeric(idx[idx_i,2])
+      v2 <- as.numeric(met[met_i,j])
+      r12<-c(r12,cor(v1,v2))
+    }
+  }
+
+   return(r12)
+}
+
+
+
+
+
+
+
