@@ -54,6 +54,7 @@ ReadShapefile_AnnualRingPoints <-function(filename="points277_h600",id.tag="id",
   #print(table(id))
   yr<-as.numeric(as.vector(dbf[,ring.tag]))	#### データフレームの作成
   d<-data.frame(x=shp[,2],y=shp[,3],id,yr)
+  d<-d[order(d$id,d$yr), ]
   head(d)
   return(d)
 }

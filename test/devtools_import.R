@@ -3,6 +3,8 @@
 
 library(devtools)
 devtools::install_github("ishidamgm/nenrin")
+devtools::install_github("ishidamgm/GISsource") ; library(GISsource)
+
 help(package="nenrin")
 
 library(nenrin)

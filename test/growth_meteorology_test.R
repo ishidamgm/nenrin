@@ -1,43 +1,32 @@
-# growth_meteorology.R
+# growth_meteorology_test.R
 
-# load("../data/Abies277_h600.RData")
-# load("../data/Takayama_Temperature_1900-2018.RData")
+#  277_h600 ####
+wd<-"../../Abies_mariesii/277_h600"
+setwd(wd)
+dir()
+L <- ReadShapefile_AnnualRings("年輪補完_277_h600",ring.tag="ring")
+Lplot(L)
+ya<-YearArea(L,yr_end=2017)   # 要注意　2017には倒れていた?
+idx<-TreeRingIndex(ya)$idx
+r12<-cor2yr(idx,met,y1=1901,y2=1955)
+bp<-barplot(r12,main=wd)
+abline(h=c(0),lty=1,lwd=3,col="red")
+abline(v=c(mean(bp[12:13])),lty=2,lwd=3)
+text(bp,r12*0.9,c(1:12,1:12))
 
-plot(ya,type="b")
-
-met
-
-#' return tree ring index from sequence of year and tree ring area
-#' using with spline curve
-#'
-#' @param ya
-#'
-#' @return list of spline curve function("spline") and tree ring index("TreeRingIndex")
-#' @export
-#'
-#' @examples
-#' par(mfrow=c(2,1))
-#' plot(ya,type="b",ylab="Tree ring area",xlab="year")
-#' data("Abies277_h600","")
-#' sm <- TreeRingIndex(ya)$spline
-#' idx<- TreeRingIndex(ya)$idx
-#' lines(sm,col="red",lw=3)
-#' plot(idx,type="b",ylab="Tree ring index",xlab="year")
-#' abline(h=1,col="red")
-#' abline(v=seq(1800,2020,10),col="gray")
-#'
-#'
-　
-TreeRingIndex <- function(ya){
-  sm<-smooth.spline(ya,spar=0.8)
-  idx<-ya[,2]/predict(sm,ya[,1])$y
-  return(list(spline=sm,idx=data.frame(year=ya[,1],TreeRingIndex=idx)))
-}
-
-
-
-
-windows()
+#  277_h400 ####
+wd<-"../../Abies_mariesii/277_h400"
+setwd(wd)
+dir()
+L <- ReadShapefile_AnnualRings("年輪補完_277_h400_3_next_plus_脱matrix_2",ring.tag="ring")
+Lplot(L)
+ya<-YearArea(L,yr_end=2018)   # 要注意　2017には倒れていた?
+idx<-TreeRingIndex(ya)$idx
+r12<-cor2yr(idx,met,y1=1901,y2=1955)
+bp<-barplot(r12,main=wd)
+abline(h=c(0),lty=1,lwd=3,col="red")
+abline(v=c(mean(bp[12:13])),lty=2,lwd=3)
+text(bp,r12*0.9,c(1:12,1:12))
 
 
 
