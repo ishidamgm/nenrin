@@ -8,6 +8,8 @@
 #' @export
 #'
 #' @examples
+#' DiameterGrowthByArea(ya)
+#'
 DiameterGrowthByArea <- function(ya){
   dpi<-1200
   pxl<-2.54/dpi
