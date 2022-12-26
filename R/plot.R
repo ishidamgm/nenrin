@@ -10,8 +10,8 @@
 #' Lplot(L)
 #' Lplot(L,rn=1:50,type="l")
 Lplot<-function(L,rn=1:length(L),...){
-  plot(L[[1]],type="l",col="red")
-  for(i in rn)lines(L[[i]],...)
+  plot(L[[1]],type="l",col="red",...)
+  for(i in rn)lines(L[[i]])
 }
 
 #' Lplot2 plots a graphics of tree rings by 1 ring (3*3 in a screen)

@@ -43,21 +43,18 @@ WriteShapefile_AnnualRings <-function(L2=L,filename="test"){
 #'
 #' @examples
 #' #年輪計測点の読み込み ####
-#' ReadShapefile_AnnualRingPoints("points277_h600",id.tag="id",ring.tag="ring")
+#' ReadShapefile_AnnualRingPoints("../155_h120/points155_h120",id.tag="id",ring.tag="ring")
 #'
 ReadShapefile_AnnualRingPoints <-function(filename="points277_h600",id.tag="id",ring.tag="ring"){
-  d<-shapefiles::read.shapefile(filename)　
-  shp<-d$shp$shp;
-  dbf<-d$dbf$dbf;	names(dbf)
-  id<-as.numeric(as.vector(dbf[,id.tag]));
-  #print(unique(id))
-  #print(table(id))
-  yr<-as.numeric(as.vector(dbf[,ring.tag]))	#### データフレームの作成
-  d<-data.frame(x=shp[,2],y=shp[,3],id,yr)
-  d<-d[order(d$id,d$yr), ]
-  head(d)
-  return(d)
-}
+    d<-st_read(paste0(filename,".shp"))　# 2022/12/18  str(d)
+    xy<-st_coordinates(d)
+    i<-(unique(xy[,3]))
+    d.<-data.frame(d)[i,c(id.tag,ring.tag)]
+    d<-data.frame(x=xy[,1],y=xy[,2],id=d.[,1],yr=d.[,2])
+    d<-d[order(d$id,d$yr), ]
+    return(d)
+  }
+
 
 #' return x,y coordinates of a tree ring center point (P00) from shape file of tree ring points
 #'

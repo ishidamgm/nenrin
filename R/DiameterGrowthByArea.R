@@ -10,13 +10,13 @@
 #' @examples
 #' DiameterGrowthByArea(ya)
 #'
-DiameterGrowthByArea <- function(ya){
+DiameterGrowthByArea <- function(ya,...){
   dpi<-1200
   pxl<-2.54/dpi
   A <- cumsum(ya[,2]) # crosscection area of trunk
   diameter_cm <- sqrt(A/pi)*2*pxl
   yd <- data.frame(ya[,1],diameter_cm )
-  plot(yd[,2],type="b",xlab="Year",ylab="Diameter (cm)")
+  plot(yd[,2],type="b",xlab="Year",ylab="Diameter (cm)",...)
   return(yd)
 
 }

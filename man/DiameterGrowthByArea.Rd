@@ -4,7 +4,7 @@
 \alias{DiameterGrowthByArea}
 \title{return data frame and plot of tree trunk diameter estimated by annual ring area}
 \usage{
-DiameterGrowthByArea(ya)
+DiameterGrowthByArea(ya, ...)
 }
 \arguments{
 \item{ya}{data frame of Year and TreeRingArea}

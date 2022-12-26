@@ -26,6 +26,6 @@ ReadShapefile_AnnualRingPoints
 }
 \examples{
 #年輪計測点の読み込み ####
-ReadShapefile_AnnualRingPoints("points277_h600",id.tag="id",ring.tag="ring")
+ReadShapefile_AnnualRingPoints("../155_h120/points155_h120",id.tag="id",ring.tag="ring")
 
 }
