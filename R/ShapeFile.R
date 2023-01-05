@@ -48,7 +48,7 @@ WriteShapefile_AnnualRings <-function(L2=L,filename="test"){
 ReadShapefile_AnnualRingPoints <-function(filename="points277_h600",id.tag="id",ring.tag="ring"){
     d<-st_read(paste0(filename,".shp"))　# 2022/12/18  str(d)
     xy<-st_coordinates(d)
-    i<-(unique(xy[,3]))
+    if(ncol(xy)==3){i<-(unique(xy[,3]))}else{i<-1:nrow(xy)}
     d.<-data.frame(d)[i,c(id.tag,ring.tag)]
     d<-data.frame(x=xy[,1],y=xy[,2],id=d.[,1],yr=d.[,2])
     d<-d[order(d$id,d$yr), ]
