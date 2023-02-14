@@ -118,12 +118,27 @@ TreeRingIndex <- function(ya){
 #' @export
 #'
 #' @examples
-#' #data("Abies277_h600","Takayama_Temperature_1900-2018")
-#' plot(ya,type="b")
-#' idx <- TreeRingIndex(ya)$idx
-#' plot(idx,type="b")
-#' y1 = 1900 ; y2 = 1950
-Takahashi2011_correlation_TreeRingIndex_Temperature<-function(){}
+#' @examples
+#' windows()
+#' par(mfrow=c(3,4))
+#' for(i in 1:length(YA))takahashi(i,1950,2018)
+takahashi<-function(ii,y1=1950,y2=2018){
+  (diskname<-names(YA[ii]))
+  ya<-YA[[ii]]$Year_AnnualRingArea
+  idx<-TreeRingIndex(ya)$idx
+  rp<-cor2yr(idx,met,y1,y2)
+  r12<-rp[[1]] ; p12<-rp[[2]]
+
+  #Takahashi2011
+  mon<-c("J","F","M","A","M","J","J","A","S","O","N","D")
+  m<-c(mon[5:12],mon[1:10])
+  rr<-r12[5:22] ;  pp<-p12[5:22]
+  print(pp)
+  barplot(rr,names=m,col=pp<0.05 , main=paste(ii,diskname))
+  abline(v=c(7.3,13.3),lty=2,lwd=3)
+  mtext(c("PGS","DS","CGS"),side=3,at=c(3,10,16.5))
+}
+
 
 
 
@@ -139,14 +154,31 @@ Takahashi2011_correlation_TreeRingIndex_Temperature<-function(){}
 #'
 #' @examples
 #' plot(rownames(met),met[,13],type="b")
+#' ii<-7 # disk number
+#' (diskname<-names(YA[ii]))
+#'   ya<-YA[[ii]]$Year_AnnualRingArea
+
 #' plot(ya,type="b")
 #' idx<-TreeRingIndex(ya)$idx
-#'  r12<-cor2yr(idx,met,y1=1901,y2=1955)
+#'  rp12<-cor2yr(idx,met,y1=1901,y2=2018)
+#'  r12<-rp12[[1]]
+#'  p12<-rp12[[2]]
 #'plot(r12,type="h",lwd=15)
 #'bp<-barplot(r12)
 #'abline(h=c(0),lty=1,lwd=3,col="red")
 #'abline(v=c(mean(bp[12:13])),lty=2,lwd=3)
 #' text(bp,r12*0.9,c(1:12,1:12))
+#'
+#' #Takahashi2011
+#' mon<-c("J","F","M","A","M","J","J","A","S","O","N","D")
+#' m<-c(mon[5:12],mon[1:10])
+#' rr<-r12[5:22]
+#' pp<-p12[5:22]
+#' barplot(rr,col=pp<0.05,names=m,main=diskname)
+#' abline(v=c(7.3,13.3),lty=2,lwd=3)
+#' mtext(c("PGS","DS","CGS"),side=3,at=c(3,10,16.5))
+
+
 cor2yr<-function(idx,met,y1=1901,y2=1950){
   y <-idx[,1]
   idx_i = which(y1==y): which(y2==y)
@@ -155,16 +187,18 @@ cor2yr<-function(idx,met,y1=1901,y2=1950){
 
   # previous-current-following year
   r12<-c()
+  p12<-c()
   for(ii in -1:0){#ii=0
     met_i = which(y==(y1+ii)):which(y==(y2+ii))
     for (j in 1:12){
       v1 <- as.numeric(idx[idx_i,2])
       v2 <- as.numeric(met[met_i,j])
       r12<-c(r12,cor(v1,v2))
+      p12<-c(p12,cor.test(v1,v2)$p.value)
     }
   }
 
-   return(r12)
+   return(list(r12,p12))
 }
 
 
