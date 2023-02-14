@@ -122,7 +122,7 @@ TreeRingIndex <- function(ya){
 #' windows()
 #' par(mfrow=c(3,4))
 #' for(i in 1:length(YA))takahashi(i,1950,2018)
-takahashi<-function(ii,y1=1950,y2=2018){
+takahashi<-function(ii=1,y1=1950,y2=2018){
   (diskname<-names(YA[ii]))
   ya<-YA[[ii]]$Year_AnnualRingArea
   idx<-TreeRingIndex(ya)$idx
